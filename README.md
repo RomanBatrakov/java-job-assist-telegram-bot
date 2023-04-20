@@ -15,7 +15,7 @@
   <p align="center">
     Телеграм бот - персональный помощник для начинающего java разработчика.
     <br />
-    <a href="files/javadoc/index.html"><strong>Документация »</strong></a>
+    <a href="files/docs/index.html"><strong>Документация »</strong></a>
   </p>
 
 # Java job assist Telegram bot

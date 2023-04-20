@@ -1,0 +1,15 @@
+com.batrakov
+com.batrakov.configuration
+com.batrakov.controller
+com.batrakov.dao
+com.batrakov.dto
+com.batrakov.entity
+com.batrakov.enums
+com.batrakov.exeptions
+com.batrakov.model
+com.batrakov.service
+com.batrakov.service.enums
+com.batrakov.service.impl
+com.batrakov.service.jobSiteService
+com.batrakov.service.rabbitService
+com.batrakov.utils
