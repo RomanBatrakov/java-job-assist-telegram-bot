@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.0.2</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.batrakov</groupId>
+  <artifactId>java-job-assist-telegram-bot</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+
+  <name>java-job-assist-telegram-bot</name>
+  <description>This bot help you find 1st job</description>
+  <modules>
+    <module>common-rabbitmq</module>
+    <module>dispatcher</module>
+    <module>node</module>
+    <module>common-jpa</module>
+    <module>common-utils</module>
+    <module>mail-service</module>
+    <module>rest-service</module>
+  </modules>
+
+  <properties>
+    <java.version>17</java.version>
+    <telegrambot.starter.version>6.5.0</telegrambot.starter.version>
+    <postgresql.version>42.5.4</postgresql.version>
+    <project.version>1.0</project.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>

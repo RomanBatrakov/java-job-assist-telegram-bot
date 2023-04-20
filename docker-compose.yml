@@ -1,0 +1,140 @@
+version: '3.8'
+services:
+  dispatcher:
+    build:  .
+    image: dispatcher
+    container_name: dispatcher
+    ports:
+      - "8088:8088"
+    depends_on:
+      - rabbitmq
+      - common-rabbitmq
+      - common-utils
+      - common-jpa
+      - jjab-db
+    env_file:
+      - ./.env
+    volumes:
+      - /home/baterok/bots/files:/files
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5431/jjab-db
+      - SPRING_DATASOURCE_USER
+      - SPRING_DATASOURCE_PASSWORD
+      - JJAB_USERNAME
+      - JJAB_TOKEN
+      - RABBITMQ_ADMIN_USER
+      - RABBITMQ_ADMIN_PASS
+
+  node:
+    build:  .
+    image: node
+    container_name: node
+    ports:
+      - "8085:8085"
+    depends_on:
+      - rabbitmq
+      - dispatcher
+      - common-rabbitmq
+      - common-utils
+      - common-jpa
+      - jjab-db
+    env_file:
+      - ./.env
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5431/jjab-db
+      - SPRING_DATASOURCE_USER
+      - SPRING_DATASOURCE_PASSWORD
+      - JJAB_USERNAME
+      - JJAB_TOKEN
+      - SALT
+      - HH_TOKEN
+      - HH_EMAIL
+      - RABBITMQ_ADMIN_USER
+      - RABBITMQ_ADMIN_PASS
+
+  mail-service:
+    build:  .
+    image: mail-service
+    container_name: mail-service
+    ports:
+      - "8087:8087"
+    depends_on:
+      - node
+      - common-utils
+    env_file:
+      - ./.env
+    restart: always
+    environment:
+      - MAIL_SERVICE_PASSWORD
+      - MAIL_SERVICE_NAME
+
+  rest-service:
+    build:  .
+    image: rest-service
+    container_name: rest-service
+    ports:
+      - "8086:8086"
+    depends_on:
+      - node
+      - common-utils
+      - common-jpa
+      - jjab-db
+    env_file:
+      - ./.env
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5431/jjab-db
+      - SPRING_DATASOURCE_USER
+      - SPRING_DATASOURCE_PASSWORD
+      - SALT
+
+  common-jpa:
+    build:  .
+    image: common-jpa
+    container_name: common-jpa
+    restart: always
+
+  common-rabbitmq:
+    build:  .
+    image: common-rabbitmq
+    container_name: common-rabbitmq
+    restart: always
+
+  common-utils:
+    build:  .
+    image: common-utils
+    container_name: common-utils
+    restart: always
+
+  jjab-db:
+    image: postgres:15.2-alpine
+    container_name: jjab-db
+    volumes:
+      - /var/lib/postgresql/data
+    ports:
+      - "5431:5431"
+    environment:
+      - POSTGRES_DB=jjab-db
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+
+  rabbitmq:
+    image: rabbitmq:3.11.0-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/docker/volumes/rabbitmq_data/_data
+    environment:
+      - RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS
+      - RABBITMQ_NODENAME=rabbit@rabbitmq
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-rabbitmq_management listener [{port,15672},{ip,\"0.0.0.0\"}]"
+      - RABBITMQ_SERVER_ADDITIONAL_CONFIG_FILE=/etc/rabbitmq/rabbitmq.conf
+      - RABBITMQ_ADMIN_USER
+      - RABBITMQ_ADMIN_PASS
