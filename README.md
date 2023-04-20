@@ -39,7 +39,7 @@
 
 Функиональность бота:
 - Показывает **релевантные** отфильтрованные вакансии java разработчика до уровня middle
-  - Выборка вакансий происходит за последние 2 суток
+  - Выборка вакансий происходит за последние 2 суток c сайтов: [hh.ru][hh-url], [career.habr.com][habr-url], [proglib.io][proglib-url]
   - Можно добавить вакансию в избранные или скрыть нежелательные
   - По команде /favourites выводится список избранных вакансий
 - С помощью системы карточек (вопрос/ответ) позволяет повторить основные теоретические вопросы, которые могут встретиться на собеседовании
@@ -68,7 +68,7 @@
 
 1. Установить  [![docker]][docker-url]
 2. Копировать проект 
-3. Создать файл .env и rabbitmq.conf в директории проекта и заполнить их
+3. Создать файл .env в директории проекта и заполнить его
 4. В директории проекта в консоли выполнить команды:
   ```sh
   mvn package 
@@ -91,6 +91,28 @@
 <p align="right">(<a href="#readme-top">наверх ⬆️</a>)</p>
 
 ## Переменные среды
+
+Содержание файла **.env**:
+
+`JJAB_USERNAME=` username телеграм бота. Например: JavaBot
+`JJAB_TOKEN=` токен телеграм бота. Например: 123456:AD5e7b_ghjAdUQR60c2StQRW0il0Xbnm
+
+`MAIL_SERVICE_NAME=` почта для отправки писем регистрации. Например: bot@gmail.com
+`MAIL_SERVICE_PASSWORD=` пароль от почты.
+`SALT=` случайный набор символов для кодировки данных в запросах. Например: 3452@#vSD234YTEY&$%
+
+`HH_TOKEN=` токен для hh.ru. Получается на сайте при регистрации приложения. 
+`HH_EMAIL=` почта пользователя hh.ru, на которого зарегистрировано приложение.
+
+`RABBITMQ_DEFAULT_USER=` логин стандартного пользователя RabbitMQ.
+`RABBITMQ_DEFAULT_PASS=` пароль стандартного пользователя RabbitMQ.
+`RABBITMQ_ADMIN_USER=` логин администратора RabbitMQ.
+`RABBITMQ_ADMIN_PASS=` пароль администратора RabbitMQ.
+
+`SPRING_DATASOURCE_USER=` логин пользователя базы данных
+`SPRING_DATASOURCE_PASSWORD=` пароль пользователя базы данных
+`POSTGRES_USER=` логин пользователя базы данных
+`POSTGRES_PASSWORD=` пароль пользователя базы данных
 
 <p align="right">(<a href="#readme-top">наверх ⬆️</a>)</p>
 
@@ -115,6 +137,9 @@
 [telegram-url]: https://t.me/JavaJobAssistBot
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/romanbatrakovjd/
+[hh-url]: https://hh.ru/
+[habr-url]: https://career.habr.com/
+[proglib-url]: https://proglib.io/vacancies/all
 
 [Java]: https://img.shields.io/badge/java%2017-orange?style=for-the-badge&logoColor=white
 [Java-url]: https://www.java.com/ru/
