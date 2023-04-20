@@ -94,25 +94,25 @@
 
 Содержание файла **.env**:
 
-`JJAB_USERNAME=` username телеграм бота. Например: JavaBot
-`JJAB_TOKEN=` токен телеграм бота. Например: 123456:AD5e7b_ghjAdUQR60c2StQRW0il0Xbnm
+`JJAB_USERNAME=` username телеграм бота. Например: JavaBot  
+`JJAB_TOKEN=` токен телеграм бота. Например: 123456:AD5e7b_ghjAdUQR60c2StQRW0il0Xbnm    
 
-`MAIL_SERVICE_NAME=` почта для отправки писем регистрации. Например: bot@gmail.com
-`MAIL_SERVICE_PASSWORD=` пароль от почты.
-`SALT=` случайный набор символов для кодировки данных в запросах. Например: 3452@#vSD234YTEY&$%
+`MAIL_SERVICE_NAME=` почта для отправки писем регистрации. Например: bot@gmail.com  
+`MAIL_SERVICE_PASSWORD=` пароль от почты.  
+`SALT=` случайный набор символов для кодировки данных в запросах. Например: 3452@#vSD234YTEY&$%  
 
-`HH_TOKEN=` токен для hh.ru. Получается на сайте при регистрации приложения. 
-`HH_EMAIL=` почта пользователя hh.ru, на которого зарегистрировано приложение.
+`HH_TOKEN=` токен для hh.ru. Получается на сайте при регистрации приложения.   
+`HH_EMAIL=` почта пользователя hh.ru, на которого зарегистрировано приложение.  
 
-`RABBITMQ_DEFAULT_USER=` логин стандартного пользователя RabbitMQ.
-`RABBITMQ_DEFAULT_PASS=` пароль стандартного пользователя RabbitMQ.
-`RABBITMQ_ADMIN_USER=` логин администратора RabbitMQ.
-`RABBITMQ_ADMIN_PASS=` пароль администратора RabbitMQ.
+`RABBITMQ_DEFAULT_USER=` логин стандартного пользователя RabbitMQ.  
+`RABBITMQ_DEFAULT_PASS=` пароль стандартного пользователя RabbitMQ.  
+`RABBITMQ_ADMIN_USER=` логин администратора RabbitMQ.  
+`RABBITMQ_ADMIN_PASS=` пароль администратора RabbitMQ.  
 
-`SPRING_DATASOURCE_USER=` логин пользователя базы данных
-`SPRING_DATASOURCE_PASSWORD=` пароль пользователя базы данных
-`POSTGRES_USER=` логин пользователя базы данных
-`POSTGRES_PASSWORD=` пароль пользователя базы данных
+`SPRING_DATASOURCE_USER=` логин пользователя базы данных.    
+`SPRING_DATASOURCE_PASSWORD=` пароль пользователя базы данных.  
+`POSTGRES_USER=` логин пользователя базы данных.  
+`POSTGRES_PASSWORD=` пароль пользователя базы данных.  
 
 <p align="right">(<a href="#readme-top">наверх ⬆️</a>)</p>
 
