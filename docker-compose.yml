@@ -1,16 +1,13 @@
 version: '3.8'
 services:
   dispatcher:
-    build:  .
+    build: dispatcher
     image: dispatcher
     container_name: dispatcher
     ports:
       - "8088:8088"
     depends_on:
       - rabbitmq
-      - common-rabbitmq
-      - common-utils
-      - common-jpa
       - jjab-db
     env_file:
       - ./.env
@@ -18,7 +15,7 @@ services:
       - /home/baterok/bots/files:/files
     restart: always
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5431/jjab-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5433/jjab-db
       - SPRING_DATASOURCE_USER
       - SPRING_DATASOURCE_PASSWORD
       - JJAB_USERNAME
@@ -27,7 +24,7 @@ services:
       - RABBITMQ_ADMIN_PASS
 
   node:
-    build:  .
+    build: node
     image: node
     container_name: node
     ports:
@@ -35,15 +32,12 @@ services:
     depends_on:
       - rabbitmq
       - dispatcher
-      - common-rabbitmq
-      - common-utils
-      - common-jpa
       - jjab-db
     env_file:
       - ./.env
     restart: always
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5431/jjab-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5433/jjab-db
       - SPRING_DATASOURCE_USER
       - SPRING_DATASOURCE_PASSWORD
       - JJAB_USERNAME
@@ -55,14 +49,13 @@ services:
       - RABBITMQ_ADMIN_PASS
 
   mail-service:
-    build:  .
+    build: mail-service
     image: mail-service
     container_name: mail-service
     ports:
       - "8087:8087"
     depends_on:
       - node
-      - common-utils
     env_file:
       - ./.env
     restart: always
@@ -71,42 +64,21 @@ services:
       - MAIL_SERVICE_NAME
 
   rest-service:
-    build:  .
-    image: rest-service
+    build: rest-service
     container_name: rest-service
     ports:
       - "8086:8086"
     depends_on:
       - node
-      - common-utils
-      - common-jpa
       - jjab-db
     env_file:
       - ./.env
     restart: always
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5431/jjab-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://jjab-db:5433/jjab-db
       - SPRING_DATASOURCE_USER
       - SPRING_DATASOURCE_PASSWORD
       - SALT
-
-  common-jpa:
-    build:  .
-    image: common-jpa
-    container_name: common-jpa
-    restart: always
-
-  common-rabbitmq:
-    build:  .
-    image: common-rabbitmq
-    container_name: common-rabbitmq
-    restart: always
-
-  common-utils:
-    build:  .
-    image: common-utils
-    container_name: common-utils
-    restart: always
 
   jjab-db:
     image: postgres:15.2-alpine
@@ -114,7 +86,9 @@ services:
     volumes:
       - /var/lib/postgresql/data
     ports:
-      - "5431:5431"
+      - "5433:5433"
+    env_file:
+      - ./.env
     environment:
       - POSTGRES_DB=jjab-db
       - POSTGRES_USER
@@ -129,7 +103,9 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - rabbitmq_data:/var/lib/docker/volumes/rabbitmq_data/_data
+      - /var/lib/rabbitmq/data
+    env_file:
+      - ./.env
     environment:
       - RABBITMQ_DEFAULT_USER
       - RABBITMQ_DEFAULT_PASS
